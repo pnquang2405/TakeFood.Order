@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
 
-namespace TakeFood.StoreService.ViewModel.Dtos.Topping
+namespace TakeFood.OrderService.ViewModel.Dtos.Topping
 {
     public class ToppingViewDto
     {

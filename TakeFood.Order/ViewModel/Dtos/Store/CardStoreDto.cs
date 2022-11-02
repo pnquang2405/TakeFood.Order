@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace TakeFood.StoreService.ViewModel.Dtos.Store;
+namespace TakeFood.OrderService.ViewModel.Dtos.Store;
 
 public class CardStoreDto
 {

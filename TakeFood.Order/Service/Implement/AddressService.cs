@@ -1,8 +1,8 @@
-﻿using StoreService.Model.Entities.Address;
-using StoreService.Model.Repository;
-using TakeFood.StoreService.ViewModel.Dtos.Address;
+﻿using Order.Model.Entities.Address;
+using Order.Model.Repository;
+using TakeFood.OrderService.ViewModel.Dtos.Address;
 
-namespace TakeFood.StoreService.Service.Implement
+namespace TakeFood.OrderService.Service.Implement
 {
     public class AddressService : IAddressService
     {

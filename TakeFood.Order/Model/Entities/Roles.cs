@@ -1,4 +1,4 @@
-﻿namespace TakeFood.StoreService.Model.Entities;
+﻿namespace TakeFood.OrderService.Model.Entities;
 
 public enum Roles
 {

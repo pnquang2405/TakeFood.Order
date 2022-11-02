@@ -21,8 +21,8 @@ using Order.Service.Implement;
 using Order.Settings;
 using System.Diagnostics;
 using System.Text.Json;
-using TakeFood.StoreService.Service;
-using TakeFood.StoreService.Service.Implement;
+using TakeFood.OrderService.Service;
+using TakeFood.OrderService.Service.Implement;
 
 namespace Order;
 

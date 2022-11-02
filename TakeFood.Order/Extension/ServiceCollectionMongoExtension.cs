@@ -1,6 +1,6 @@
 ﻿using MongoDB.Driver;
-using StoreService.Model.Entities;
-using StoreService.Model.Repository;
+using Order.Model.Entities;
+using Order.Model.Repository;
 
 namespace Order.Extension;
 

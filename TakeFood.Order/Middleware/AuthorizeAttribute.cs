@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using TakeFood.StoreService.Model.Entities;
+using TakeFood.OrderService.Model.Entities;
 
 namespace Order.Middleware;
 

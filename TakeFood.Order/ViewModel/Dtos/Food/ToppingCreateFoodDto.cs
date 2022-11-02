@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace TakeFood.StoreService.ViewModel.Dtos.Food
+namespace TakeFood.OrderService.ViewModel.Dtos.Food
 {
     public class ToppingCreateFoodDto
     {

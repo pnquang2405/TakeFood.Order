@@ -1,6 +1,6 @@
 ﻿using System.Resources;
-using StoreService.ViewModel.Resource;
-using StoreService.ViewModel.Response;
+using Order.ViewModel.Resource;
+using Order.ViewModel.Response;
 
 namespace Order.Extension;
 

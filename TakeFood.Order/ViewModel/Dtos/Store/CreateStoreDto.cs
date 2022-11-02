@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
-using TakeFood.StoreService.ViewModel.Dtos.Address;
+using TakeFood.OrderService.ViewModel.Dtos.Address;
 
-namespace TakeFood.StoreService.ViewModel.Dtos.Store
+namespace TakeFood.OrderService.ViewModel.Dtos.Store
 {
     public class CreateStoreDto
     {

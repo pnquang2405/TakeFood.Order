@@ -1,6 +1,6 @@
-﻿using TakeFood.StoreService.ViewModel.Dtos.Address;
+﻿using TakeFood.OrderService.ViewModel.Dtos.Address;
 
-namespace TakeFood.StoreService.Service
+namespace TakeFood.OrderService.Service
 {
     public interface IAddressService
     {

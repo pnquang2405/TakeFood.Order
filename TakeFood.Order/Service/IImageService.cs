@@ -1,7 +1,7 @@
 ﻿
-using TakeFood.StoreService.ViewModel.Dtos.Image;
+using TakeFood.OrderService.ViewModel.Dtos.Image;
 
-namespace TakeFood.StoreService.Service
+namespace TakeFood.OrderService.Service
 {
     public interface IImageService
     {

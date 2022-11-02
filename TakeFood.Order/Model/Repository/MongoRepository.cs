@@ -1,11 +1,11 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
-using StoreService.Model.Entities;
-using StoreService.Utilities;
-using StoreService.Utilities.Helper;
+using Order.Model.Entities;
+using Order.Utilities;
+using Order.Utilities.Helper;
 using System.Linq.Expressions;
-using TakeFood.StoreService.Model.Content;
+using TakeFood.OrderService.Model.Content;
 
 namespace Order.Model.Repository;
 

@@ -1,10 +1,10 @@
 ﻿using MongoDB.Driver;
 using MongoDB.Driver.Linq;
+using Order.Model.Entities;
+using Order.Utilities;
 using System.Linq.Expressions;
-using TakeFood.StoreService.Model.Content;
-using StoreService.Model.Entities;
-using StoreService.Utilities;
-using static StoreService.Model.Repository.IRepository;
+using TakeFood.OrderService.Model.Content;
+using static Order.Model.Repository.IRepository;
 
 namespace Order.Model.Repository;
 

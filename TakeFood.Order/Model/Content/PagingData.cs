@@ -1,4 +1,4 @@
-﻿namespace TakeFood.StoreService.Model.Content;
+﻿namespace TakeFood.OrderService.Model.Content;
 
 public class PagingData<T>
 {

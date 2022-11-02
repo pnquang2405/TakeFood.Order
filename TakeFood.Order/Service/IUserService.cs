@@ -1,5 +1,5 @@
-﻿using StoreService.ViewModel.Dtos;
-using StoreService.ViewModel.Dtos.User;
+﻿using Order.ViewModel.Dtos;
+using Order.ViewModel.Dtos.User;
 
 namespace Order.Service;
 

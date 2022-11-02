@@ -1,4 +1,4 @@
-﻿namespace TakeFood.StoreService.ViewModel.Dtos.Store;
+﻿namespace TakeFood.OrderService.ViewModel.Dtos.Store;
 
 public class StoreDetailsDto
 {

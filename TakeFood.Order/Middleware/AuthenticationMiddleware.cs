@@ -1,5 +1,5 @@
-﻿using StoreService.Service;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.IdentityModel.Tokens;
+using Order.Service;
 using System.IdentityModel.Tokens.Jwt;
 
 namespace Order.Middleware;

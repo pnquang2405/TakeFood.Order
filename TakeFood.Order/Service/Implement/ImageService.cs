@@ -1,8 +1,8 @@
-﻿using StoreService.Model.Entities.Image;
-using StoreService.Model.Repository;
-using TakeFood.StoreService.ViewModel.Dtos.Image;
+﻿using Order.Model.Entities.Image;
+using Order.Model.Repository;
+using TakeFood.OrderService.ViewModel.Dtos.Image;
 
-namespace TakeFood.StoreService.Service.Implement
+namespace TakeFood.OrderService.Service.Implement
 {
     public class ImageService : IImageService
     {

@@ -1,8 +1,8 @@
-﻿using StoreService.Model.Entities.Role;
-using StoreService.Model.Entities.User;
-using StoreService.Model.Repository;
-using StoreService.ViewModel.Dtos;
-using StoreService.ViewModel.Dtos.User;
+﻿using Order.Model.Entities.Role;
+using Order.Model.Entities.User;
+using Order.Model.Repository;
+using Order.ViewModel.Dtos;
+using Order.ViewModel.Dtos.User;
 using MongoDB.Bson;
 using BC = BCrypt.Net.BCrypt;
 

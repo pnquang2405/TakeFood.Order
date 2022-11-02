@@ -1,5 +1,5 @@
-﻿using StoreService.Model.Content;
-using StoreService.Settings;
+﻿using Order.Model.Content;
+using Order.Settings;
 using MailKit.Security;
 using MimeKit;
 

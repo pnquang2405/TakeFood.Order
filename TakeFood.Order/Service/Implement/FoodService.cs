@@ -1,8 +1,8 @@
-﻿using StoreService.Model.Entities.Category;
-using StoreService.Model.Entities.Food;
-using StoreService.Model.Entities.Topping;
-using StoreService.Model.Repository;
-using TakeFood.StoreService.ViewModel.Dtos.Food;
+﻿using Order.Model.Entities.Category;
+using Order.Model.Entities.Food;
+using Order.Model.Entities.Topping;
+using Order.Model.Repository;
+using TakeFood.OrderService.ViewModel.Dtos.Food;
 
 namespace Order.Service.Implement
 {

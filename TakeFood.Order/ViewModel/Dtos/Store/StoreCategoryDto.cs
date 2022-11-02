@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
 
-namespace TakeFood.StoreService.ViewModel.Dtos.Store
+namespace TakeFood.OrderService.ViewModel.Dtos.Store
 {
     public class StoreCategoryDto
     {

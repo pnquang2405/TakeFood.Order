@@ -1,4 +1,4 @@
-﻿using StoreService.Model.Content;
+﻿using Order.Model.Content;
 
 namespace Order.Service;
 

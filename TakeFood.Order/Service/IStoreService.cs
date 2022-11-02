@@ -1,6 +1,6 @@
 ﻿
-using StoreService.Model.Entities.Store;
-using TakeFood.StoreService.ViewModel.Dtos.Store;
+using Order.Model.Entities.Store;
+using TakeFood.OrderService.ViewModel.Dtos.Store;
 
 namespace Order.Service
 {

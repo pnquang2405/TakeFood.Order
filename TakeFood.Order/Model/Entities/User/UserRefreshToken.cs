@@ -1,5 +1,4 @@
-﻿using StoreService.Model.Entities;
-using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson.Serialization.Attributes;
 
 namespace Order.Model.Entities.User;
 

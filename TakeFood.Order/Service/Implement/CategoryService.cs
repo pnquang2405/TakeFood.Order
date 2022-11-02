@@ -1,6 +1,6 @@
-﻿using StoreService.Model.Entities.Category;
-using StoreService.Model.Repository;
-using StoreService.ViewModel.Dtos.Category;
+﻿using Order.Model.Entities.Category;
+using Order.Model.Repository;
+using Order.ViewModel.Dtos.Category;
 
 namespace Order.Service.Implement
 {

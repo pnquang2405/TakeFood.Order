@@ -1,4 +1,4 @@
-﻿namespace TakeFood.StoreService.Utilities.Helper
+﻿namespace TakeFood.OrderService.Utilities.Helper
 {
     public class MapCoordinates
     {

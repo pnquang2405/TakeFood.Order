@@ -1,11 +1,11 @@
-﻿using StoreService.Model.Entities.Order;
-using StoreService.Model.Entities.Topping;
-using StoreService.Model.Repository;
+﻿using Order.Model.Entities.Order;
+using Order.Model.Entities.Topping;
+using Order.Model.Repository;
 using System.Runtime.InteropServices;
 using System.Xml.Linq;
-using TakeFood.StoreService.ViewModel.Dtos.Topping;
+using TakeFood.OrderService.ViewModel.Dtos.Topping;
 
-namespace TakeFood.StoreService.Service.Implement
+namespace TakeFood.OrderService.Service.Implement
 {
     public class ToppingService : IToppingService
     {

@@ -1,5 +1,5 @@
-﻿using StoreService.Model.Entities.User;
-using StoreService.Model.Repository;
+﻿using Order.Model.Entities.User;
+using Order.Model.Repository;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;

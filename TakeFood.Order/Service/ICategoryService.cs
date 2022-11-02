@@ -1,4 +1,5 @@
-﻿using StoreService.ViewModel.Dtos.Category;
+﻿
+using Order.ViewModel.Dtos.Category;
 
 namespace Order.Service
 {

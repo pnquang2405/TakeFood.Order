@@ -1,6 +1,6 @@
-﻿using TakeFood.StoreService.ViewModel.Dtos.Topping;
+﻿using TakeFood.OrderService.ViewModel.Dtos.Topping;
 
-namespace TakeFood.StoreService.Service
+namespace TakeFood.OrderService.Service
 {
     public interface IToppingService
     {

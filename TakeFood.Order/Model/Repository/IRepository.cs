@@ -1,4 +1,4 @@
-﻿using StoreService.Model.Entities;
+﻿using Order.Model.Entities;
 using System.Linq.Expressions;
 
 namespace Order.Model.Repository;

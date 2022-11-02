@@ -1,14 +1,14 @@
-using StoreService.Model.Entities.Address;
-using StoreService.Model.Entities.Order;
-using StoreService.Model.Entities.Review;
-using StoreService.Model.Entities.Store;
-using StoreService.Model.Repository;
+using Order.Model.Entities.Address;
+using Order.Model.Entities.Order;
+using Order.Model.Entities.Review;
+using Order.Model.Entities.Store;
+using Order.Model.Repository;
 using System.Text.Json;
-using TakeFood.StoreService.Service;
-using TakeFood.StoreService.Utilities.Helper;
-using TakeFood.StoreService.ViewModel.Dtos.Food;
-using TakeFood.StoreService.ViewModel.Dtos.Image;
-using TakeFood.StoreService.ViewModel.Dtos.Store;
+using TakeFood.OrderService.Service;
+using TakeFood.OrderService.Utilities.Helper;
+using TakeFood.OrderService.ViewModel.Dtos.Food;
+using TakeFood.OrderService.ViewModel.Dtos.Image;
+using TakeFood.OrderService.ViewModel.Dtos.Store;
 
 namespace Order.Service.Implement;
 
@@ -20,10 +20,10 @@ public class StoreService : IStoreService
     private readonly IFoodService foodService;
     private readonly IMongoRepository<StoreCategory> storeCateRepository;
     private readonly IMongoRepository<Review> reviewRepository;
-    private readonly IMongoRepository<Order> orderRepository;
+    private readonly IMongoRepository<Order.Model.Entities.Order.Order> orderRepository;
     public StoreService(IMongoRepository<Store> storeRepository, IMongoRepository<Address> addressRepository
         , IImageService imageService, IMongoRepository<StoreCategory> storeCateRepository, IFoodService foodService
-        , IMongoRepository<Review> reviewRepository, IMongoRepository<Order> orderRepository)
+        , IMongoRepository<Review> reviewRepository, IMongoRepository<Order.Model.Entities.Order.Order> orderRepository)
     {
         this.storeRepository = storeRepository;
         this.addressRepository = addressRepository;

@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace TakeFood.StoreService.ViewModel.Dtos.Address
+namespace TakeFood.OrderService.ViewModel.Dtos.Address
 {
     public class StoreAddressDto
     {
