@@ -1,5 +1,4 @@
 using Order.Model.Entities.Address;
-using Order.Model.Entities.Order;
 using Order.Model.Entities.Review;
 using Order.Model.Entities.Store;
 using Order.Model.Repository;
