@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "F:\\An\\TakeFood.Order\\TakeFood.Order\\TakeFood.Order.csproj": {}
+    "E:\\PBL_6\\OrderService\\TakeFood.Order\\TakeFood.Order\\TakeFood.Order.csproj": {}
   },
   "projects": {
-    "F:\\An\\TakeFood.Order\\TakeFood.Order\\TakeFood.Order.csproj": {
+    "E:\\PBL_6\\OrderService\\TakeFood.Order\\TakeFood.Order\\TakeFood.Order.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\An\\TakeFood.Order\\TakeFood.Order\\TakeFood.Order.csproj",
+        "projectUniqueName": "E:\\PBL_6\\OrderService\\TakeFood.Order\\TakeFood.Order\\TakeFood.Order.csproj",
         "projectName": "TakeFood.Order",
-        "projectPath": "F:\\An\\TakeFood.Order\\TakeFood.Order\\TakeFood.Order.csproj",
-        "packagesPath": "C:\\Users\\IOTLink\\.nuget\\packages\\",
-        "outputPath": "F:\\An\\TakeFood.Order\\TakeFood.Order\\obj\\",
+        "projectPath": "E:\\PBL_6\\OrderService\\TakeFood.Order\\TakeFood.Order\\TakeFood.Order.csproj",
+        "packagesPath": "C:\\Users\\TGDD\\.nuget\\packages\\",
+        "outputPath": "E:\\PBL_6\\OrderService\\TakeFood.Order\\TakeFood.Order\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\IOTLink\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\TGDD\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
