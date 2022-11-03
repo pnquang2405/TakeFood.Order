@@ -10,6 +10,6 @@ public class Order : ModelMongoDB
     public string Sate { get; set; }
     public string PaymentMethod { get; set; }
     public string Mode { get; set; }
-    public Double Total { get; set; }
-    public Double Discount { get; set; }
+    public double Total { get; set; }
+    public double Discount { get; set; }
 }
