@@ -42,5 +42,19 @@ namespace TakeFood.Order.Controllers
                 return new JsonResult(e);
             }
         }
+
+        [HttpGet("BestSellingFood")]
+        public async Task<JsonResult> GetBestFoodSoled(string storeID, int month, int year)
+        {
+            try
+            {
+                FoodSold foodSold = await orderService.GetBestSellingFood(storeID, month, year);
+                return new JsonResult(foodSold);
+            }
+            catch(Exception e)
+            {
+                return new JsonResult(e.Message);
+            }
+        }
     }
 }
