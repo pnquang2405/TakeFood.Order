@@ -272,5 +272,38 @@ namespace Order.Service.Implement
 
             return list;
         }
+
+        public async Task<FoodSold> GetBestSellingFood(string storeID, int month, int year)
+        {
+            DateTime dateStart = new DateTime(year, month, 1);
+            DateTime dateEnd = dateStart.AddMonths(1).AddDays(-1);
+            List<ViewOrderDto> listOrder = await FilterByDate(storeID, dateStart, dateEnd);
+            List<FoodSold> foodSolds = new();
+
+            foreach(var order in listOrder)
+            {
+                List<FoodOrder> foodOrder = (List<FoodOrder>)await _FoodOrderRepository.FindAsync(x => x.OrderId == order.ID);
+                foreach(var food in foodOrder)
+                {
+                    FoodSold temp = new()
+                    {
+                        FoodID = food.FoodId,
+                        quantity = food.Quantity
+                    };
+                    if(foodSolds.Contains(temp)){
+                        int index = foodSolds.IndexOf(temp);
+                        foodSolds[index].quantity += temp.quantity;
+                    }
+                    else
+                    {
+                        foodSolds.Add(temp);
+                    }
+                }
+            }
+
+            List<FoodSold> result = foodSolds.OrderBy(x => x.quantity).ToList();
+
+            return result[0];
+        }
     }
 }
