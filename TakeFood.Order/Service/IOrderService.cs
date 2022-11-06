@@ -15,7 +15,7 @@ namespace Order.Service
         Task<List<ViewOrderDto>> FilterByKey(string key, string status);
         Task<List<ViewOrderDto>> FilterByDate(string StoreID, DateTime timeStart, DateTime timeEnd);
         Task<NotifyDto> GetNotifyInfo(string storeId);
-
         Task<RevenueDto> Revenue(string storeID, int month, int year);
+        Task<List<RevenueDto>> GetRevenueList(string storeID, int year);
     }
 }

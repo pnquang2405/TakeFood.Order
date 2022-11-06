@@ -260,5 +260,17 @@ namespace Order.Service.Implement
 
             return revenueDto;
         }
+
+        public async Task<List<RevenueDto>> GetRevenueList(string storeID, int year)
+        {
+            List<RevenueDto> list = new List<RevenueDto>();
+            for(var i = 1; i<=12; i++)
+            {
+                RevenueDto dto = await Revenue(storeID, i, year);
+                list.Add(dto);
+            }
+
+            return list;
+        }
     }
 }
