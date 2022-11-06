@@ -7,11 +7,11 @@ namespace Order.ViewModel.Dtos.Order
         [JsonPropertyName("id")]
         public string? ID { get; set; }
         [JsonPropertyName("nameUser")]
-        public string? NameUser { get; set; }
+        public string NameUser { get; set; }
         [JsonPropertyName("address")]
         public string? Address { get; set; }
         [JsonPropertyName("sdt")]
-        public string? Phone { get; set; }
+        public string Phone { get; set; }
         [JsonPropertyName("totalPrice")]
         public double? TotalPrice { get; set; }
         [JsonPropertyName("dateOrder")]

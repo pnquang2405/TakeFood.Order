@@ -9,6 +9,7 @@ using Order.Model.Entities.Address;
 using Order.Model.Entities.Category;
 using Order.Model.Entities.Food;
 using Order.Model.Entities.Image;
+using Order.Model.Entities.Order;
 using Order.Model.Entities.Review;
 using Order.Model.Entities.Role;
 using Order.Model.Entities.Store;
@@ -22,6 +23,7 @@ using System.Diagnostics;
 using System.Text.Json;
 using TakeFood.OrderService.Service;
 using TakeFood.OrderService.Service.Implement;
+using TakeFood.UserOrder.Hubs;
 
 namespace Order;
 
@@ -153,6 +155,8 @@ public class Startup
         services.AddMongoRepository<FoodTopping>(appSetting.NoSQL.Collections.FoodTopping);
         services.AddMongoRepository<Review>(appSetting.NoSQL.Collections.Review);
         services.AddMongoRepository<Order.Model.Entities.Order.Order>(appSetting.NoSQL.Collections.Order);
+        services.AddMongoRepository<FoodOrder>(appSetting.NoSQL.Collections.FoodOrder);
+        services.AddMongoRepository<ToppingOrder>(appSetting.NoSQL.Collections.ToppingOrder);
 
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IMailService, MailService>();
@@ -169,16 +173,18 @@ public class Startup
 
         services.AddCors(options =>
         {
-            options.AddDefaultPolicy(
+            options.AddPolicy("AllowAll",
                 builder =>
                 {
-                    builder.AllowAnyOrigin()
+                    builder.WithOrigins("http://localhost:3000")
                     .AllowAnyHeader()
-                    .AllowAnyMethod();
-                    //.AllowCredentials();
+                    .AllowAnyMethod()
+                    .AllowCredentials();
                 }
             );
         });
+
+        services.AddSignalR();
     }
 
     /// <summary>
@@ -201,6 +207,7 @@ public class Startup
             app.UseDefaultFiles();
 
             app.UseStaticFiles();
+            app.UseCors("AllowAll");
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseSwagger();
@@ -208,6 +215,7 @@ public class Startup
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<NotificationHub>("/notifysocket");
             });
 
         }
