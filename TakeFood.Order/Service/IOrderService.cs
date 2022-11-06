@@ -1,5 +1,6 @@
 ﻿using Order.ViewModel.Dtos.Order;
 using TakeFood.Order.ViewModel.Dtos.Order;
+using TakeFood.Order.ViewModel.Dtos.Revenue;
 using TakeFood.UserOrder.ViewModel.Dtos;
 
 namespace Order.Service
@@ -15,6 +16,6 @@ namespace Order.Service
         Task<List<ViewOrderDto>> FilterByDate(string StoreID, DateTime timeStart, DateTime timeEnd);
         Task<NotifyDto> GetNotifyInfo(string storeId);
 
-        Task<double> Revenue(string storeID, int month, int year);
+        Task<RevenueDto> Revenue(string storeID, int month, int year);
     }
 }

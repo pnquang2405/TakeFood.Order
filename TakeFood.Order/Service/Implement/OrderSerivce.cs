@@ -7,6 +7,7 @@ using Order.Model.Entities.User;
 using Order.Model.Repository;
 using Order.ViewModel.Dtos.Order;
 using TakeFood.Order.ViewModel.Dtos.Order;
+using TakeFood.Order.ViewModel.Dtos.Revenue;
 using TakeFood.UserOrder.ViewModel.Dtos;
 
 namespace Order.Service.Implement
@@ -238,7 +239,7 @@ namespace Order.Service.Implement
             return dto;
         }
 
-        public async Task<double> Revenue(string storeID, int month, int year)
+        public async Task<RevenueDto> Revenue(string storeID, int month, int year)
         {
             DateTime dateStart = new DateTime(year, month, 1);
             DateTime dateEnd = dateStart.AddMonths(1).AddDays(-1);
@@ -251,7 +252,13 @@ namespace Order.Service.Implement
                 revenue = (double)listOrder.Sum(selector);
             }
 
-            return revenue;
+            RevenueDto revenueDto = new()
+            {
+                month = month,
+                revenue = revenue,
+            };
+
+            return revenueDto;
         }
     }
 }

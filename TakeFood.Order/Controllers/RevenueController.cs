@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Order.Service;
+using TakeFood.Order.ViewModel.Dtos.Revenue;
 
 namespace TakeFood.Order.Controllers
 {
@@ -15,16 +16,23 @@ namespace TakeFood.Order.Controllers
         }
 
         [HttpGet("Revenue")]
-        public async Task<double> Revenue(string storeID, int month, int year)
+        public async Task<JsonResult> Revenue(string storeID, int month, int year)
         {
             try
             {
-                return await orderService.Revenue(storeID, month, year);
+                RevenueDto revenue = await orderService.Revenue(storeID, month, year);
+                return Json(new { revenue });
             }
-            catch
+            catch(Exception ex)
             {
-                return 0;
+                return new JsonResult(ex);
             }
+        }
+
+        [HttpGet("RevenueOfYear")]
+        public async Task<JsonResult> RevenueOfYear(string storeID, int year)
+        {
+            
         }
     }
 }
