@@ -1,6 +1,6 @@
 ﻿namespace Order.Model.Entities.Order;
 
-public class ToppingOrder
+public class ToppingOrder:ModelMongoDB
 {
     public string FoodOrderId { get; set; }
     public string ToppingId { get; set; }
