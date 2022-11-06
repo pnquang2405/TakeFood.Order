@@ -12,7 +12,9 @@ namespace Order.Service
         Task<OrderDetailsDto> GetDetailsOrder(string orderId);
         Task<List<ToppingOrderDto>> GetToppingsByFoodOrderID(string FoodOrderID);
         Task<List<ViewOrderDto>> FilterByKey(string key, string status);
-        /*Task<List<ViewOrderDto>> FilterByDate(DateTime timeStart, DateTime timeEnd);*/
+        Task<List<ViewOrderDto>> FilterByDate(string StoreID, DateTime timeStart, DateTime timeEnd);
         Task<NotifyDto> GetNotifyInfo(string storeId);
+
+        Task<double> Revenue(string storeID, int month, int year);
     }
 }

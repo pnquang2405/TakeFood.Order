@@ -178,10 +178,29 @@ namespace Order.Service.Implement
             }
         }
 
-        /*public Task<List<ViewOrderDto>> FilterByDate(DateTime timeStart, DateTime timeEnd)
+        public async Task<List<ViewOrderDto>> FilterByDate(string StoreID, DateTime timeStart, DateTime timeEnd)
         {
-            List<Order.Model.Entities.Order.Order> orders = _MongoRepository.FindAsync(x => x.CreatedDate > )
-        }*/
+            List<ViewOrderDto> result = new();
+            List<Order.Model.Entities.Order.Order> orders = (List<Model.Entities.Order.Order>)await _MongoRepository.FindAsync(x => x.CreatedDate >= timeStart && x.CreatedDate <= timeEnd && x.StoreId == StoreID);
+            if(orders.Count > 0)
+            {
+                foreach (var order in orders)
+                {
+                    ViewOrderDto item = new()
+                    {
+                        ID = order.Id,
+                        NameUser = await _UserRepository.FindByIdAsync(order.UserId) != null ? (await _UserRepository.FindByIdAsync(order.UserId)).Name : "no Name",
+                        Address = await _AddressRepository.FindByIdAsync(order.AddressId) != null ? ((await _AddressRepository.FindByIdAsync(order.AddressId)).Addrress) : "no Address",
+                        Phone = order.PhoneNumber,
+                        TotalPrice = order.Total,
+                        DateOrder = order.CreatedDate,
+                        State = order.Sate
+                    };
+                    result.Add(item);
+                }
+            }
+            return result;
+        }
 
         public async Task<NotifyDto> GetNotifyInfo(string storeId)
         {
@@ -217,6 +236,22 @@ namespace Order.Service.Implement
                 Message = message
             };
             return dto;
+        }
+
+        public async Task<double> Revenue(string storeID, int month, int year)
+        {
+            DateTime dateStart = new DateTime(year, month, 1);
+            DateTime dateEnd = dateStart.AddMonths(1).AddDays(-1);
+            List<ViewOrderDto> listOrder = await FilterByDate(storeID, dateStart, dateEnd);
+            double revenue = 0;
+
+            if (listOrder != null)
+            {
+                Func<ViewOrderDto, double?> selector = x => x.TotalPrice;
+                revenue = (double)listOrder.Sum(selector);
+            }
+
+            return revenue;
         }
     }
 }

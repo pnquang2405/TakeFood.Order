@@ -128,5 +128,19 @@ namespace TakeFood.Order.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [HttpGet("GetOrderByDate")]
+        public async Task<JsonResult> FilterOrderByDate(string StoreID, DateTime dateStart, DateTime endStart)
+        {
+            try
+            {
+                List<ViewOrderDto> viewOrders = await orderService.FilterByDate(StoreID, dateStart, endStart);
+                return new JsonResult(viewOrders);
+            }
+            catch (Exception e)
+            {
+                return new JsonResult(e.Message);
+            }
+        }
     }
 }
