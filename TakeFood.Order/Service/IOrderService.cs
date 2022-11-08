@@ -7,12 +7,12 @@ namespace Order.Service
 {
     public interface IOrderService
     {
-        Task<List<ViewOrderDto>> GetAllOrder();
-        Task<List<ViewOrderDto>> GetAllOrderByStatus(string status);
+        Task<List<ViewOrderDto>> GetAllOrder(string storeID);
+        Task<List<ViewOrderDto>> GetAllOrderByStatus(string storeID, string status);
         Task<string> UpdateStatusOrder(string status, string idOrder);
         Task<OrderDetailsDto> GetDetailsOrder(string orderId);
         Task<List<ToppingOrderDto>> GetToppingsByFoodOrderID(string FoodOrderID);
-        Task<List<ViewOrderDto>> FilterByKey(string key, string status);
+        Task<List<ViewOrderDto>> FilterByKey(string storeID, string key, string status);
         Task<List<ViewOrderDto>> FilterByDate(string StoreID, DateTime timeStart, DateTime timeEnd);
         Task<NotifyDto> GetNotifyInfo(string storeId);
         Task<RevenueDto> Revenue(string storeID, int month, int year);

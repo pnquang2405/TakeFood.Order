@@ -23,9 +23,9 @@ namespace TakeFood.Order.Controllers
         }
 
         [HttpGet("GetAllOrder")]
-        public async Task<JsonResult> GetAllOrder()
+        public async Task<JsonResult> GetAllOrder(string storeID)
         {
-            List<ViewOrderDto> result = await orderService.GetAllOrder();
+            List<ViewOrderDto> result = await orderService.GetAllOrder(storeID);
             try
             {
                 return Json(result);
@@ -37,9 +37,9 @@ namespace TakeFood.Order.Controllers
         }
 
         [HttpGet("GetAllOrderByStatus")]
-        public async Task<JsonResult> GetAllOrder(string status)
+        public async Task<JsonResult> GetAllOrder(string storeID, string status)
         {
-            List<ViewOrderDto> result = await orderService.GetAllOrderByStatus(status);
+            List<ViewOrderDto> result = await orderService.GetAllOrderByStatus(storeID, status);
             try
             {
                 return Json(result);
@@ -93,11 +93,11 @@ namespace TakeFood.Order.Controllers
         }
 
         [HttpGet("FilterByKey")]
-        public async Task<JsonResult> FilterByKey(string key, [Optional] string status)
+        public async Task<JsonResult> FilterByKey(string storeID, string key, [Optional] string status)
         {
             try
             {
-                List<ViewOrderDto> result = await orderService.FilterByKey(key, status);
+                List<ViewOrderDto> result = await orderService.FilterByKey(storeID, key, status);
                 return new JsonResult(result);
             }
             catch (Exception e)

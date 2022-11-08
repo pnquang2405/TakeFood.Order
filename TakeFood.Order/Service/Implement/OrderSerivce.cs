@@ -35,10 +35,10 @@ namespace Order.Service.Implement
             _ToppingOrderRepository = toppingOrderReppsitory;
         }
 
-        public async Task<List<ViewOrderDto>> GetAllOrder()
+        public async Task<List<ViewOrderDto>> GetAllOrder(string storeID)
         {
             List<ViewOrderDto> orderList = new();
-            List<Order.Model.Entities.Order.Order> orders = (List<Model.Entities.Order.Order>)await _MongoRepository.GetAllAsync();
+            List<Order.Model.Entities.Order.Order> orders = (List<Model.Entities.Order.Order>)await _MongoRepository.FindAsync(x => x.StoreId == storeID);
 
             if (orders != null)
             {
@@ -60,9 +60,9 @@ namespace Order.Service.Implement
             return orderList;
         }
 
-        public async Task<List<ViewOrderDto>> GetAllOrderByStatus(string status)
+        public async Task<List<ViewOrderDto>> GetAllOrderByStatus(string storeID, string status)
         {
-            List<Order.Model.Entities.Order.Order> orders = (List<Order.Model.Entities.Order.Order>)await _MongoRepository.FindAsync(x => x.Sate == status);
+            List<Order.Model.Entities.Order.Order> orders = (List<Order.Model.Entities.Order.Order>)await _MongoRepository.FindAsync(x => x.Sate == status && x.StoreId == storeID);
             List<ViewOrderDto> orderList = new();
 
             if (orders != null)
@@ -141,16 +141,16 @@ namespace Order.Service.Implement
             return ListToppingOrder;
         }
 
-        public async Task<List<ViewOrderDto>> FilterByKey(string key, string status)
+        public async Task<List<ViewOrderDto>> FilterByKey(string storeID, string key, string status)
         {
             List<ViewOrderDto> list = new();
             if(status == null || status == "")
             {
-                list = await GetAllOrder();
+                list = await GetAllOrder(storeID);
             }
             else
             {
-                list = await GetAllOrderByStatus(status);
+                list = await GetAllOrderByStatus(storeID, status);
             }
 
             if(key != null && key != "")
