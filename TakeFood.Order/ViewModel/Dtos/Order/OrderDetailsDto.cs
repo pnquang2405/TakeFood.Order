@@ -29,5 +29,7 @@ namespace TakeFood.Order.ViewModel.Dtos.Order
         public double TotalPrice { get; set; }
         [JsonPropertyName("ListFood")]
         public List<FoodOrderDto>? ListFood { get; set; }
+        [JsonPropertyName("Status")]
+        public string status { get; set; }
     }
 }

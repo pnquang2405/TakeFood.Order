@@ -98,6 +98,7 @@ namespace Order.Service.Implement
                 orderDetailsDto.PaymentMethod = order.PaymentMethod;
                 orderDetailsDto.Address = await _AddressRepository.FindByIdAsync(order.AddressId) != null ? (await _AddressRepository.FindByIdAsync(order.AddressId)).Addrress : "08 Hà Văn Tính - Hòa Khánh Nam - Liên Chiểu - TP.Đà Nẵng";
                 orderDetailsDto.Phone = order.PhoneNumber;
+                orderDetailsDto.status = order.Sate;
                 List<FoodOrder>? foodOrders = await _FoodOrderRepository.FindAsync(x => x.OrderId == orderId) != null ? ((List<FoodOrder>)await _FoodOrderRepository.FindAsync(x => x.OrderId == orderId)) : null;
                 List<FoodOrderDto> foodListOrder = new();
                 if(foodOrders != null)
