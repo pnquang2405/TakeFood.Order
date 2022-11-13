@@ -113,6 +113,19 @@ namespace Order.Service.Implement
                             Quantity = foodOrder.Quantity,
                             Price = await _FoodRepository.FindByIdAsync(foodOrder.FoodId) != null ? (await _FoodRepository.FindByIdAsync(foodOrder.FoodId)).Price : 10000,
                         };
+                        tempItem.ListTopping = new();
+                        List<ToppingOrder> toppingOrders = (List<ToppingOrder>)await _ToppingOrderRepository.FindAsync(x => x.FoodOrderId == foodOrder.Id);
+                        foreach(ToppingOrder toppingOrder in toppingOrders)
+                        {
+                            ToppingOrderDto toppingOrderDto = new()
+                            {
+                                ToppingId = toppingOrder.ToppingId,
+                                ToppingName = await _ToppingRepository.FindByIdAsync(toppingOrder.ToppingId) != null ? (await _ToppingRepository.FindByIdAsync(toppingOrder.ToppingId)).Name : "topping thêm", 
+                                Price = await _ToppingRepository.FindByIdAsync(toppingOrder.ToppingId) != null ? (await _ToppingRepository.FindByIdAsync(toppingOrder.ToppingId)).Price : 1000,
+                                Quantity = toppingOrder.Quantity
+                            };
+                            tempItem.ListTopping.Add(toppingOrderDto);
+                        }
                         foodListOrder.Add(tempItem);
                     }
                     orderDetailsDto.ListFood = foodListOrder;
