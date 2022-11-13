@@ -4,5 +4,6 @@
     {
         public string FoodID { get; set; }
         public int quantity { get; set; }
+        public string Name { get; set; }
     }
 }

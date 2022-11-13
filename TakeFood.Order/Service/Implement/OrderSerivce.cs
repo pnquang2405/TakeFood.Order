@@ -303,7 +303,8 @@ namespace Order.Service.Implement
                     FoodSold temp = new()
                     {
                         FoodID = food.FoodId,
-                        quantity = food.Quantity
+                        quantity = food.Quantity,
+                        Name = (await _FoodRepository.FindByIdAsync(food.FoodId)) != null ? (await _FoodRepository.FindByIdAsync(food.FoodId)).Name : ""
                     };
                     if(foodSolds.Contains(temp)){
                         int index = foodSolds.IndexOf(temp);
@@ -318,7 +319,7 @@ namespace Order.Service.Implement
 
             List<FoodSold> result = foodSolds.OrderBy(x => x.quantity).ToList();
 
-            return result[0];
+            return result.First();
         }
     }
 }
