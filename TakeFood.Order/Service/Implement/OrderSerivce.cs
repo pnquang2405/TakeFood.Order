@@ -392,7 +392,7 @@ namespace Order.Service.Implement
 
             List<FoodSold> result = foodSolds.OrderBy(x => x.quantity).ToList();
 
-            return result.First();
+            return result.Last();
         }
     }
 }
