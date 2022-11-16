@@ -99,6 +99,9 @@ namespace Order.Service.Implement
                 orderDetailsDto.Address = await _AddressRepository.FindByIdAsync(order.AddressId) != null ? (await _AddressRepository.FindByIdAsync(order.AddressId)).Addrress : "08 Hà Văn Tính - Hòa Khánh Nam - Liên Chiểu - TP.Đà Nẵng";
                 orderDetailsDto.Phone = order.PhoneNumber;
                 orderDetailsDto.status = order.Sate;
+                orderDetailsDto.Discount = order.Discount;
+                orderDetailsDto.TotalPrice = order.Total;
+                orderDetailsDto.TempTotalPrice = order.Total + order.Discount;
                 List<FoodOrder>? foodOrders = await _FoodOrderRepository.FindAsync(x => x.OrderId == orderId) != null ? ((List<FoodOrder>)await _FoodOrderRepository.FindAsync(x => x.OrderId == orderId)) : null;
                 List<FoodOrderDto> foodListOrder = new();
                 if(foodOrders != null)
@@ -304,7 +307,8 @@ namespace Order.Service.Implement
                     {
                         FoodID = food.FoodId,
                         quantity = food.Quantity,
-                        Name = (await _FoodRepository.FindByIdAsync(food.FoodId)) != null ? (await _FoodRepository.FindByIdAsync(food.FoodId)).Name : ""
+                        Name = (await _FoodRepository.FindByIdAsync(food.FoodId)) != null ? (await _FoodRepository.FindByIdAsync(food.FoodId)).Name : "",
+                        urlImage = (await _FoodRepository.FindByIdAsync(food.FoodId)) != null ? (await _FoodRepository.FindByIdAsync(food.FoodId)).ImgUrl : ""
                     };
                     if(foodSolds.Contains(temp)){
                         int index = foodSolds.IndexOf(temp);
