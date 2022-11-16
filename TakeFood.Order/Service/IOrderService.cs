@@ -9,6 +9,7 @@ namespace Order.Service
     {
         Task<List<ViewOrderDto>> GetAllOrder(string storeID);
         Task<List<ViewOrderDto>> GetAllOrderByStatus(string storeID, string status);
+        Task<OrderPagingRespone> GetPagingOrder(GetPagingOrderDto dto, string storeID, string status);
         Task<string> UpdateStatusOrder(string status, string idOrder);
         Task<OrderDetailsDto> GetDetailsOrder(string orderId);
         Task<List<ToppingOrderDto>> GetToppingsByFoodOrderID(string FoodOrderID);
