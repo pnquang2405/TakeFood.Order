@@ -50,6 +50,20 @@ namespace TakeFood.Order.Controllers
             }
         }
 
+        [HttpGet("GetPagingOrder")]
+        public async Task<JsonResult> GetPagingOrder([FromQuery]GetPagingOrderDto dto, string storeID,[Optional] string status)
+        {
+            try
+            {
+                var rs = await orderService.GetPagingOrder(dto, storeID, status);
+                return new JsonResult(rs);
+            }
+            catch(Exception e)
+            {
+                return new JsonResult(e);
+            }
+        }
+
         [HttpPut]
         public async Task<string> UpdateStatus(string status, string idOrder)
         {

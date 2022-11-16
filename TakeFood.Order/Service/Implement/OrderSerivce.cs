@@ -1,11 +1,15 @@
-﻿using MongoDB.Driver.Linq;
+﻿using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using Order.Model.Entities.Address;
 using Order.Model.Entities.Food;
 using Order.Model.Entities.Order;
+using Order.Model.Entities.Store;
 using Order.Model.Entities.Topping;
 using Order.Model.Entities.User;
+using Order.Model.Entities.Voucher;
 using Order.Model.Repository;
 using Order.ViewModel.Dtos.Order;
+using System.Net.WebSockets;
 using TakeFood.Order.ViewModel.Dtos.Order;
 using TakeFood.Order.ViewModel.Dtos.Revenue;
 using TakeFood.UserOrder.ViewModel.Dtos;
@@ -84,6 +88,71 @@ namespace Order.Service.Implement
             }
             return orderList;
         }
+
+        public async Task<OrderPagingRespone> GetPagingOrder(GetPagingOrderDto dto, string storeID, string status)
+        {
+            if (status != "Ordered" && status != "Delivering" && status != "Processing" && status != "Delivered") status = "";
+            var filter = CreateFilter(dto.StartDate, dto.EndDate, dto.QueryString, storeID, status);
+            if (dto.PageNumber <= 0 || dto.PageSize <= 0)
+            {
+                throw new Exception("Pagenumber or pagesize can not be  zero or negative");
+            }
+            var rs = await _MongoRepository.GetPagingAsync(filter, dto.PageNumber - 1, dto.PageSize);
+            var list = new List<ViewOrderDto>();
+            foreach(var order in rs.Data)
+            {
+                list.Add(new ViewOrderDto()
+                {
+                    ID = order.Id,
+                    NameUser = await _UserRepository.FindByIdAsync(order.UserId) != null ? (await _UserRepository.FindByIdAsync(order.UserId)).Name : "no Name",
+                    Address = await _AddressRepository.FindByIdAsync(order.AddressId) != null ? ((await _AddressRepository.FindByIdAsync(order.AddressId)).Addrress) : "no Address",
+                    Phone = order.PhoneNumber,
+                    TotalPrice = order.Total,
+                    DateOrder = order.CreatedDate,
+                    State = order.Sate
+                });
+            }
+
+            switch (dto.SortBy)
+            {
+                case "CreateDate": list = list.OrderBy(x => x.DateOrder).ToList(); break;
+                case "NameUser": list = list.OrderBy(x => x.NameUser).ToList(); break;
+                case "TotalPrice": list = list.OrderBy(x => x.TotalPrice).ToList(); break;
+                default: list = list.OrderBy(x => x.DateOrder).ToList(); break;
+            }
+            switch (dto.SortType)
+            {
+                case "Desc": list.Reverse(); break;
+            }
+
+            var info = new OrderPagingRespone()
+            {
+                Total = rs.Count,
+                PageIndex = dto.PageNumber,
+                PageSize = dto.PageSize,
+                viewOrderDtos = list
+            };
+
+            return info;
+        }
+
+        private FilterDefinition<Order.Model.Entities.Order.Order> CreateFilter(DateTime? startDate, DateTime? endDate, string query, string storeId, string status)
+        {
+            var filter = Builders<Order.Model.Entities.Order.Order>.Filter.Eq(x => x.StoreId, storeId);
+            if (status != "") filter &= Builders<Order.Model.Entities.Order.Order>.Filter.Eq(x => x.Sate, status);
+            if (startDate != null && endDate != null)
+            {
+                filter &= Builders<Order.Model.Entities.Order.Order>.Filter.Gte(x => x.CreatedDate, startDate);
+                filter &= Builders<Order.Model.Entities.Order.Order>.Filter.Lte(x => x.CreatedDate, endDate);
+            }
+            if(query != null)
+            {
+                filter &= Builders<Order.Model.Entities.Order.Order>.Filter.Where(x => x.PhoneNumber.Contains(query));
+            }
+
+            return filter;
+        }
+
 
         public async Task<OrderDetailsDto> GetDetailsOrder(string orderId)
         {
