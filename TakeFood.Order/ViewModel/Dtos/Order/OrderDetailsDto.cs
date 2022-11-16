@@ -22,7 +22,7 @@ namespace TakeFood.Order.ViewModel.Dtos.Order
         [JsonPropertyName("TempTotalPrice")]
         public double TempTotalPrice { get; set; }
         [JsonPropertyName("Discount")]
-        public string? Discount { get; set; }
+        public double Discount { get; set; }
         [JsonPropertyName("FeeShip")]
         public double FeeShip { get; set; }
         [JsonPropertyName("TotalPrice")]
