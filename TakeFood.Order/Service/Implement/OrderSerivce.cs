@@ -9,6 +9,7 @@ using Order.Model.Entities.User;
 using Order.Model.Entities.Voucher;
 using Order.Model.Repository;
 using Order.ViewModel.Dtos.Order;
+using System.Linq;
 using System.Net.WebSockets;
 using TakeFood.Order.ViewModel.Dtos.Order;
 using TakeFood.Order.ViewModel.Dtos.Revenue;
@@ -97,7 +98,10 @@ namespace Order.Service.Implement
             {
                 throw new Exception("Pagenumber or pagesize can not be  zero or negative");
             }
-            var rs = await _MongoRepository.GetPagingAsync(filter, dto.PageNumber - 1, dto.PageSize);
+            var rs1 = await _MongoRepository.GetPagingAsync(filter, dto.PageNumber - 1, dto.PageSize);
+            var size = (rs1.Count % dto.PageSize) != 0 ? rs1.Count/dto.PageSize + 1 : rs1.Count/dto.PageSize;
+            var rs = await _MongoRepository.GetPagingAsync(filter, size - dto.PageNumber, dto.PageSize);
+            
             var list = new List<ViewOrderDto>();
             foreach(var order in rs.Data)
             {
@@ -111,6 +115,25 @@ namespace Order.Service.Implement
                     DateOrder = order.CreatedDate,
                     State = order.Sate
                 });
+            }
+
+            if(rs.Data.Count() != dto.PageSize && size - dto.PageNumber > 0)
+            {
+                var rs_plus = await _MongoRepository.GetPagingAsync(filter, size - dto.PageNumber - 1, dto.PageSize);
+                for(var i = dto.PageSize; i > dto.PageSize - rs.Data.Count(); i--)
+                {
+                    Model.Entities.Order.Order order = rs_plus.Data.ElementAt(i-1);
+                    list.Add(new ViewOrderDto()
+                    {
+                        ID = order.Id,
+                        NameUser = await _UserRepository.FindByIdAsync(order.UserId) != null ? (await _UserRepository.FindByIdAsync(order.UserId)).Name : "no Name",
+                        Address = await _AddressRepository.FindByIdAsync(order.AddressId) != null ? ((await _AddressRepository.FindByIdAsync(order.AddressId)).Addrress) : "no Address",
+                        Phone = order.PhoneNumber,
+                        TotalPrice = order.Total,
+                        DateOrder = order.CreatedDate,
+                        State = order.Sate
+                    });
+                }
             }
 
             switch (dto.SortBy)
