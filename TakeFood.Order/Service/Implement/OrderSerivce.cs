@@ -402,8 +402,8 @@ namespace Order.Service.Implement
                         Name = (await _FoodRepository.FindByIdAsync(food.FoodId)) != null ? (await _FoodRepository.FindByIdAsync(food.FoodId)).Name : "",
                         urlImage = (await _FoodRepository.FindByIdAsync(food.FoodId)) != null ? (await _FoodRepository.FindByIdAsync(food.FoodId)).ImgUrl : ""
                     };
-                    if(foodSolds.Contains(temp)){
-                        int index = foodSolds.IndexOf(temp);
+                    if(foodSolds.Any(x => x.FoodID == temp.FoodID)){
+                        int index = foodSolds.FindIndex(x => x.FoodID == temp.FoodID);
                         foodSolds[index].quantity += temp.quantity;
                     }
                     else
