@@ -317,30 +317,12 @@ namespace Order.Service.Implement
             {
                 throw new Exception("Order's not exist");
             }
-            string message = "Có đơn hàng mới";
-            /*switch (order.Sate)
-            {
-                case "Đã xác nhận":
-                    {
-                        break;
-                    }
-                case "Sẵn sàng":
-                    {
-                        message = "Đơn hàng đã sẵn sáng để giao/ lấy";
-                        break;
-                    }
-                case "Hoàn tất":
-                    {
-                        message = "Đơn hàng đã hoàn tất";
-                        break;
-                    }
-                default: message = "Message nay chi de test thoi"; break;
-            }*/
-
+            string message = orderID;
+            
             var dto = new NotifyDto()
             {
                 UserId = store.OwnerId,
-                Header = "Cập nhật trạng thái đơn hàng",
+                Header = "Có đơn hàng mới!!!",
                 Message = message
             };
             return dto;
