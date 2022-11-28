@@ -48,5 +48,11 @@ public class Store:ModelMongoDB
     /// </summary>
     [BsonElement("taxId")]
     public string TaxId { get; set; }
+    [BsonElement("STK")]
+    public string STK { get; set; }
+    [BsonElement("email")]
+    public string email { get; set; }
 
+    [BsonElement("cmnd")]
+    public string cmnd { get; set; }
 }
