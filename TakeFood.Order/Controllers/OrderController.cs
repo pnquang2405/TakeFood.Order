@@ -64,12 +64,19 @@ namespace TakeFood.Order.Controllers
             }
         }
 
+        private async Task NotifyAsync(string orderId)
+        {
+            using var client = new HttpClient();
+            var result = await client.GetAsync("https://takefood-orderservice.azurewebsites.net/api/Order/Notify?orderId=" + orderId);
+        }
+
         [HttpPut]
         public async Task<string> UpdateStatus(string status, string idOrder)
         {
             string result = await orderService.UpdateStatusOrder(status, idOrder);
             if (result != null)
             {
+                await NotifyAsync(idOrder);
                 return result;
             }
             else
