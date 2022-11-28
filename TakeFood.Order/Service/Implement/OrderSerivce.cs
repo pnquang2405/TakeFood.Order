@@ -26,10 +26,11 @@ namespace Order.Service.Implement
         private readonly IMongoRepository<Food> _FoodRepository;
         private readonly IMongoRepository<Topping> _ToppingRepository;
         private readonly IMongoRepository<ToppingOrder> _ToppingOrderRepository;
+        private readonly IMongoRepository<Store> _StoreRepository;
         
         public OrderSerivce(IMongoRepository<Order.Model.Entities.Order.Order> mongoRepository, IMongoRepository<User> mongoUser
             , IMongoRepository<Address> addressRepository, IMongoRepository<FoodOrder> foodOrderRepository, IMongoRepository<Food> foodRepository
-            , IMongoRepository<Topping> toppingRepository, IMongoRepository<ToppingOrder> toppingOrderReppsitory)
+            , IMongoRepository<Topping> toppingRepository, IMongoRepository<ToppingOrder> toppingOrderReppsitory, IMongoRepository<Store> storeRepository)
         {
             _MongoRepository = mongoRepository;
             _UserRepository = mongoUser;
@@ -38,6 +39,7 @@ namespace Order.Service.Implement
             _FoodRepository = foodRepository;
             _ToppingRepository = toppingRepository;
             _ToppingOrderRepository = toppingOrderReppsitory;
+            _StoreRepository = storeRepository;
         }
 
         public async Task<List<ViewOrderDto>> GetAllOrder(string storeID)
@@ -306,9 +308,11 @@ namespace Order.Service.Implement
             return result;
         }
 
-        public async Task<NotifyDto> GetNotifyInfo(string storeId)
+        public async Task<NotifyDto> GetNotifyInfo(string orderID)
         {
-            var order = await _MongoRepository.FindByIdAsync(storeId);
+            var order = await _MongoRepository.FindByIdAsync(orderID);
+            var store = await _StoreRepository.FindByIdAsync(order.StoreId);
+            
             if (order == null)
             {
                 throw new Exception("Order's not exist");
@@ -335,7 +339,7 @@ namespace Order.Service.Implement
 
             var dto = new NotifyDto()
             {
-                UserId = order.UserId,
+                UserId = store.OwnerId,
                 Header = "Cập nhật trạng thái đơn hàng",
                 Message = message
             };
