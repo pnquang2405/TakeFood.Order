@@ -201,7 +201,7 @@ namespace Order.Service.Implement
                             FoodId = foodOrder.FoodId,
                             FoodName = await _FoodRepository.FindByIdAsync(foodOrder.FoodId) != null ? (await _FoodRepository.FindByIdAsync(foodOrder.FoodId)).Name : "No name",
                             Quantity = foodOrder.Quantity,
-                            Price = await _FoodRepository.FindByIdAsync(foodOrder.FoodId) != null ? (await _FoodRepository.FindByIdAsync(foodOrder.FoodId)).Price : 10000,
+                            Price = await _FoodRepository.FindByIdAsync(foodOrder.FoodId) != null ? (await _FoodRepository.FindByIdAsync(foodOrder.FoodId)).Price* foodOrder.Quantity : 0,
                         };
                         tempItem.ListTopping = new();
                         List<ToppingOrder> toppingOrders = (List<ToppingOrder>)await _ToppingOrderRepository.FindAsync(x => x.FoodOrderId == foodOrder.Id);
@@ -211,9 +211,10 @@ namespace Order.Service.Implement
                             {
                                 ToppingId = toppingOrder.ToppingId,
                                 ToppingName = await _ToppingRepository.FindByIdAsync(toppingOrder.ToppingId) != null ? (await _ToppingRepository.FindByIdAsync(toppingOrder.ToppingId)).Name : "topping thêm", 
-                                Price = await _ToppingRepository.FindByIdAsync(toppingOrder.ToppingId) != null ? (await _ToppingRepository.FindByIdAsync(toppingOrder.ToppingId)).Price : 1000,
+                                Price = await _ToppingRepository.FindByIdAsync(toppingOrder.ToppingId) != null ? (await _ToppingRepository.FindByIdAsync(toppingOrder.ToppingId)).Price*toppingOrder.Quantity : 0,
                                 Quantity = toppingOrder.Quantity
                             };
+                            tempItem.Price += toppingOrderDto.Price;
                             tempItem.ListTopping.Add(toppingOrderDto);
                         }
                         foodListOrder.Add(tempItem);
