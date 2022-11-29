@@ -67,7 +67,7 @@ namespace TakeFood.Order.Controllers
         private async Task NotifyAsync(string orderId)
         {
             using var client = new HttpClient();
-            var result = await client.GetAsync("https://takefooduserorder.azurewebsites.net/Notify?orderId=" + orderId);
+            var result = await client.GetAsync("https://takefoodmobile.azurewebsites.net/Notify?orderId=" + orderId);
         }
 
         [HttpPut]
