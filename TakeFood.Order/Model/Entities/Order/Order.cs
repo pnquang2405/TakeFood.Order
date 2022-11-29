@@ -2,7 +2,7 @@
 
 public class Order : ModelMongoDB
 {
-    public string UserId { get; set; }
+    public string? UserId { get; set; }
     public string StoreId { get; set; }
     public string PhoneNumber { get; set; }
     public string Note { get; set; }

@@ -181,9 +181,9 @@ namespace Order.Service.Implement
                 orderDetailsDto.OrderId = order.Id;
                 orderDetailsDto.Note = order.Note;
                 orderDetailsDto.DateOrder = order.CreatedDate;
-                orderDetailsDto.NameUser = await _UserRepository.FindByIdAsync(order.UserId) != null ? (await _UserRepository.FindByIdAsync(order.UserId)).Name : "Phạm Ngọc Quang";
+                orderDetailsDto.NameUser = await _UserRepository.FindByIdAsync(order.UserId) != null ? (await _UserRepository.FindByIdAsync(order.UserId)).Name : "no Name";
                 orderDetailsDto.PaymentMethod = order.PaymentMethod;
-                orderDetailsDto.Address = await _AddressRepository.FindByIdAsync(order.AddressId) != null ? (await _AddressRepository.FindByIdAsync(order.AddressId)).Addrress : "08 Hà Văn Tính - Hòa Khánh Nam - Liên Chiểu - TP.Đà Nẵng";
+                orderDetailsDto.Address = await _AddressRepository.FindByIdAsync(order.AddressId) != null ? (await _AddressRepository.FindByIdAsync(order.AddressId)).Addrress : "No Address";
                 orderDetailsDto.Phone = order.PhoneNumber;
                 orderDetailsDto.status = order.Sate;
                 orderDetailsDto.Discount = order.Discount;
