@@ -201,6 +201,7 @@ namespace Order.Service.Implement
                             FoodId = foodOrder.FoodId,
                             FoodName = await _FoodRepository.FindByIdAsync(foodOrder.FoodId) != null ? (await _FoodRepository.FindByIdAsync(foodOrder.FoodId)).Name : "No name",
                             Quantity = foodOrder.Quantity,
+                            OriPrice = await _FoodRepository.FindByIdAsync(foodOrder.FoodId) != null ? (await _FoodRepository.FindByIdAsync(foodOrder.FoodId)).Price : 0,
                             Price = await _FoodRepository.FindByIdAsync(foodOrder.FoodId) != null ? (await _FoodRepository.FindByIdAsync(foodOrder.FoodId)).Price* foodOrder.Quantity : 0,
                         };
                         tempItem.ListTopping = new();
