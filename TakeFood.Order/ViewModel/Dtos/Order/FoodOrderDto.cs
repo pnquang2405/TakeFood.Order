@@ -13,6 +13,8 @@ namespace TakeFood.Order.ViewModel.Dtos.Order
         public string? FoodName { get; set; }
         [JsonPropertyName("Price")]
         public double Price { get; set; }
+        [JsonPropertyName("OriPrice")]
+        public double OriPrice { get; set; }
         [JsonPropertyName("Quantity")]
         public int Quantity { get; set; }
         [JsonPropertyName("ListTopping")]
