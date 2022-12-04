@@ -176,7 +176,7 @@ public class Startup
             options.AddPolicy("AllowAll",
                 builder =>
                 {
-                    builder.WithOrigins("http://localhost:3000")
+                builder.WithOrigins("http://localhost:3000", "https://takefoodstore.web.app")
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials();
