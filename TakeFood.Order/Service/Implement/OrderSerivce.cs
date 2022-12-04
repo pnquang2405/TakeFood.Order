@@ -184,8 +184,6 @@ namespace Order.Service.Implement
                 orderDetailsDto.Phone = order.PhoneNumber;
                 orderDetailsDto.status = order.Sate;
                 orderDetailsDto.Discount = order.Discount;
-                orderDetailsDto.TotalPrice = order.Total;
-                orderDetailsDto.TempTotalPrice = order.Total + order.Discount;
                 List<FoodOrder>? foodOrders = await _FoodOrderRepository.FindAsync(x => x.OrderId == orderId) != null ? ((List<FoodOrder>)await _FoodOrderRepository.FindAsync(x => x.OrderId == orderId)) : null;
                 List<FoodOrderDto> foodListOrder = new();
                 if (foodOrders != null)
@@ -215,8 +213,10 @@ namespace Order.Service.Implement
                             tempItem.Price += toppingOrderDto.Price;
                             tempItem.ListTopping.Add(toppingOrderDto);
                         }
+                        orderDetailsDto.TotalPrice = tempItem.Price;
                         foodListOrder.Add(tempItem);
                     }
+                    orderDetailsDto.TempTotalPrice = orderDetailsDto.TotalPrice + order.Discount;
                     orderDetailsDto.ListFood = foodListOrder;
                 }
             }
