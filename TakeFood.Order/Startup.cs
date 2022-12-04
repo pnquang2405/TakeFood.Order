@@ -170,13 +170,13 @@ public class Startup
 
         services.AddScoped<IJwtService, JwtService>(x => new JwtService(x.GetRequiredService<IMongoRepository<UserRefreshToken>>()
            , appSetting.JwtConfig.Secret, appSetting.JwtConfig.Secret2, appSetting.JwtConfig.ExpirationInHours, appSetting.JwtConfig.ExpirationInMonths));
-
+        string[] origins = { "http://localhost:3000", "https://takefoodstore.web.app" };
         services.AddCors(options =>
         {
             options.AddPolicy("AllowAll",
                 builder =>
                 {
-                builder.WithOrigins("http://localhost:3000", "https://takefoodstore.web.app")
+                builder.WithOrigins(origins)
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials();
