@@ -6,7 +6,7 @@ namespace TakeFood.Order.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class RevenueController:BaseController
+    public class RevenueController : BaseController
     {
         public readonly IOrderService orderService;
 
@@ -23,7 +23,7 @@ namespace TakeFood.Order.Controllers
                 RevenueDto revenue = await orderService.Revenue(storeID, month, year);
                 return new JsonResult(revenue);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return new JsonResult(ex);
             }
@@ -37,7 +37,23 @@ namespace TakeFood.Order.Controllers
                 List<RevenueDto> list = await orderService.GetRevenueList(storeID, year);
 
                 return new JsonResult(list);
-            }catch(Exception e)
+            }
+            catch (Exception e)
+            {
+                return new JsonResult(e);
+            }
+        }
+
+        [HttpGet("RevenueOfSystemYear")]
+        public async Task<JsonResult> RevenueOfSystemYear(int year)
+        {
+            try
+            {
+                List<RevenueDto> list = await orderService.GetRevenueSystemList(year);
+
+                return new JsonResult(list);
+            }
+            catch (Exception e)
             {
                 return new JsonResult(e);
             }
@@ -51,7 +67,7 @@ namespace TakeFood.Order.Controllers
                 FoodSold foodSold = await orderService.GetBestSellingFood(storeID, month, year);
                 return new JsonResult(foodSold);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return new JsonResult(e.Message);
             }

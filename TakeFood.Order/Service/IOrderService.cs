@@ -19,5 +19,6 @@ namespace Order.Service
         Task<RevenueDto> Revenue(string storeID, int month, int year);
         Task<List<RevenueDto>> GetRevenueList(string storeID, int year);
         Task<FoodSold> GetBestSellingFood(string storeID, int month, int year);
+        Task<List<RevenueDto>> GetRevenueSystemList(int year);
     }
 }
