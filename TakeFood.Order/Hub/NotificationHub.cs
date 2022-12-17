@@ -36,10 +36,17 @@ public class NotificationHub : Hub
         }
         else
         {
-            string name = JwtService.GetId(token);
-            _connections.Add(name, Context.ConnectionId);
-
-            return base.OnConnectedAsync();
+            try
+            {
+                JwtService.ValidSecurityToken(token);
+                string name = JwtService.GetId(token);
+                _connections.Add(name, Context.ConnectionId);
+                return base.OnConnectedAsync();
+            }
+            catch (Exception err)
+            {
+                return null;
+            }
         }
     }
 
