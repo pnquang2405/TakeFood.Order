@@ -16,11 +16,11 @@ namespace TakeFood.Order.Controllers
         }
 
         [HttpGet("Revenue")]
-        public async Task<JsonResult> Revenue(string storeID, int month, int year)
+        public async Task<JsonResult> Revenue(string storeID, int month, int year, string paymentMethod = "All")
         {
             try
             {
-                RevenueDto revenue = await orderService.Revenue(storeID, month, year);
+                RevenueDto revenue = await orderService.Revenue(storeID, month, year, paymentMethod);
                 return new JsonResult(revenue);
             }
             catch (Exception ex)
@@ -30,11 +30,11 @@ namespace TakeFood.Order.Controllers
         }
 
         [HttpGet("RevenueOfYear")]
-        public async Task<JsonResult> RevenueOfYear(string storeID, int year)
+        public async Task<JsonResult> RevenueOfYear(string storeID, int year, string paymentMethod = "All")
         {
             try
             {
-                List<RevenueDto> list = await orderService.GetRevenueList(storeID, year);
+                List<RevenueDto> list = await orderService.GetRevenueList(storeID, year, paymentMethod);
 
                 return new JsonResult(list);
             }

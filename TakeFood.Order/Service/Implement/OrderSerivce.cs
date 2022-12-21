@@ -283,10 +283,19 @@ namespace Order.Service.Implement
             }
         }
 
-        public async Task<List<ViewOrderDto>> FilterByDate(string StoreID, DateTime timeStart, DateTime timeEnd)
+        public async Task<List<ViewOrderDto>> FilterByDate(string StoreID, DateTime timeStart, DateTime timeEnd, string paymentMethod="Tien mat")
         {
             List<ViewOrderDto> result = new();
-            List<Order.Model.Entities.Order.Order> orders = (List<Model.Entities.Order.Order>)await _MongoRepository.FindAsync(x => x.CreatedDate >= timeStart && x.CreatedDate <= timeEnd && x.StoreId == StoreID);
+            List<Model.Entities.Order.Order> orders = new();
+            if (paymentMethod == "All")
+            {
+                orders = (List<Model.Entities.Order.Order>)await _MongoRepository.FindAsync(x => x.CreatedDate >= timeStart && x.CreatedDate <= timeEnd && x.StoreId == StoreID);
+            }
+            else
+            {
+                orders = (List<Model.Entities.Order.Order>)await _MongoRepository.FindAsync(x => x.CreatedDate >= timeStart && x.CreatedDate <= timeEnd && x.StoreId == StoreID  && x.PaymentMethod == paymentMethod);
+            }
+            
             if (orders.Count > 0)
             {
                 foreach (var order in orders)
@@ -296,6 +305,37 @@ namespace Order.Service.Implement
                         ID = order.Id,
                         NameUser = await _UserRepository.FindByIdAsync(order.UserId) != null ? (await _UserRepository.FindByIdAsync(order.UserId)).Name : "no Name",
                         Address = await _AddressRepository.FindByIdAsync(order.AddressId) != null ? ((await _AddressRepository.FindByIdAsync(order.AddressId)).Addrress) : "no Address",
+                        Phone = order.PhoneNumber,
+                        TotalPrice = order.Total,
+                        DateOrder = order.CreatedDate,
+                        State = order.Sate
+                    };
+                    result.Add(item);
+                }
+            }
+            return result;
+        }
+
+        private async Task<List<ViewOrderDto>> FilterByDate2(string StoreID, DateTime timeStart, DateTime timeEnd, string paymentMethod = "Tien mat")
+        {
+            List<ViewOrderDto> result = new();
+            List<Model.Entities.Order.Order> orders = new();
+            if (paymentMethod == "All")
+            {
+                orders = (List<Model.Entities.Order.Order>)await _MongoRepository.FindAsync(x => x.CreatedDate >= timeStart && x.CreatedDate <= timeEnd && x.StoreId == StoreID);
+            }
+            else
+            {
+                orders = (List<Model.Entities.Order.Order>)await _MongoRepository.FindAsync(x => x.CreatedDate >= timeStart && x.CreatedDate <= timeEnd && x.StoreId == StoreID && x.PaymentMethod == paymentMethod);
+            }
+
+            if (orders.Count > 0)
+            {
+                foreach (var order in orders)
+                {
+                    ViewOrderDto item = new()
+                    {
+                        ID = order.Id,
                         Phone = order.PhoneNumber,
                         TotalPrice = order.Total,
                         DateOrder = order.CreatedDate,
@@ -318,8 +358,6 @@ namespace Order.Service.Implement
                     ViewOrderDto item = new()
                     {
                         ID = order.Id,
-                        NameUser = await _UserRepository.FindByIdAsync(order.UserId) != null ? (await _UserRepository.FindByIdAsync(order.UserId)).Name : "no Name",
-                        Address = await _AddressRepository.FindByIdAsync(order.AddressId) != null ? ((await _AddressRepository.FindByIdAsync(order.AddressId)).Addrress) : "no Address",
                         Phone = order.PhoneNumber,
                         TotalPrice = order.Total,
                         DateOrder = order.CreatedDate,
@@ -351,11 +389,11 @@ namespace Order.Service.Implement
             return dto;
         }
 
-        public async Task<RevenueDto> Revenue(string storeID, int month, int year)
+        public async Task<RevenueDto> Revenue(string storeID, int month, int year, string paymentMethod = "All")
         {
             DateTime dateStart = new DateTime(year, month, 1);
             DateTime dateEnd = dateStart.AddMonths(1).AddDays(-1);
-            List<ViewOrderDto> listOrder = await FilterByDate(storeID, dateStart, dateEnd);
+            List<ViewOrderDto> listOrder = await FilterByDate2(storeID, dateStart, dateEnd, paymentMethod);
             double revenue = 0;
 
             if (listOrder != null)
@@ -395,12 +433,12 @@ namespace Order.Service.Implement
             return revenueDto;
         }
 
-        public async Task<List<RevenueDto>> GetRevenueList(string storeID, int year)
+        public async Task<List<RevenueDto>> GetRevenueList(string storeID, int year, string paymentMethod = "All")
         {
             List<RevenueDto> list = new List<RevenueDto>();
             for (var i = 1; i <= 12; i++)
             {
-                RevenueDto dto = await Revenue(storeID, i, year);
+                RevenueDto dto = await Revenue(storeID, i, year, paymentMethod);
                 list.Add(dto);
             }
 
@@ -423,7 +461,7 @@ namespace Order.Service.Implement
         {
             DateTime dateStart = new DateTime(year, month, 1);
             DateTime dateEnd = dateStart.AddMonths(1).AddDays(-1);
-            List<ViewOrderDto> listOrder = await FilterByDate(storeID, dateStart, dateEnd);
+            List<ViewOrderDto> listOrder = await FilterByDate2(storeID, dateStart, dateEnd);
             List<FoodSold> foodSolds = new();
 
             foreach (var order in listOrder)

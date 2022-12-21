@@ -14,10 +14,10 @@ namespace Order.Service
         Task<OrderDetailsDto> GetDetailsOrder(string orderId);
         Task<List<ToppingOrderDto>> GetToppingsByFoodOrderID(string FoodOrderID);
         Task<List<ViewOrderDto>> FilterByKey(string storeID, string key, string status);
-        Task<List<ViewOrderDto>> FilterByDate(string StoreID, DateTime timeStart, DateTime timeEnd);
+        Task<List<ViewOrderDto>> FilterByDate(string StoreID, DateTime timeStart, DateTime timeEnd, string paymentMethod = "All");
         Task<NotifyDto> GetNotifyInfo(string storeId);
-        Task<RevenueDto> Revenue(string storeID, int month, int year);
-        Task<List<RevenueDto>> GetRevenueList(string storeID, int year);
+        Task<RevenueDto> Revenue(string storeID, int month, int year, string paymentMethod = "All");
+        Task<List<RevenueDto>> GetRevenueList(string storeID, int year, string paymentMethod= "All");
         Task<FoodSold> GetBestSellingFood(string storeID, int month, int year);
         Task<List<RevenueDto>> GetRevenueSystemList(int year);
     }
