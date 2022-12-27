@@ -91,7 +91,7 @@ namespace Order.Service.Implement
 
         public async Task<OrderPagingRespone> GetPagingOrder(GetPagingOrderDto dto, string storeID, string status)
         {
-            if (status != "Ordered" && status != "Delivering" && status != "Processing" && status != "Delivered") status = "";
+            if (status != "Ordered" && status != "Delivering" && status != "Processing" && status != "Delivered" && status != "Canceled") status = "";
             var filter = CreateFilter(dto.StartDate, dto.EndDate, dto.QueryString, storeID, status);
             var sort = CreateSortFilter(dto.SortType, dto.SortBy);
             if (dto.PageNumber <= 0 || dto.PageSize <= 0)
