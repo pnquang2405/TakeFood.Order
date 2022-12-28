@@ -8,6 +8,8 @@ using Order.Model.Entities.Topping;
 using Order.Model.Entities.User;
 using Order.Model.Repository;
 using Order.ViewModel.Dtos.Order;
+using System;
+using System.Collections.Generic;
 using TakeFood.Order.ViewModel.Dtos.Order;
 using TakeFood.Order.ViewModel.Dtos.Revenue;
 using TakeFood.UserOrder.ViewModel.Dtos;
@@ -322,7 +324,7 @@ namespace Order.Service.Implement
             List<Model.Entities.Order.Order> orders = new();
             if (paymentMethod == "All")
             {
-                orders = (List<Model.Entities.Order.Order>)await _MongoRepository.FindAsync(x => x.CreatedDate >= timeStart && x.CreatedDate <= timeEnd && x.StoreId == StoreID);
+                orders = (List<Model.Entities.Order.Order>)await _MongoRepository.FindAsync(x => x.CreatedDate >= timeStart && x.CreatedDate <= timeEnd && x.StoreId == StoreID  && x.PaymentMethod!= "Paypal - Chưa thanh toán" && x.PaymentMethod != "Paypal - Thanh toán không thành công");
             }
             else
             {
@@ -350,7 +352,7 @@ namespace Order.Service.Implement
         public async Task<List<ViewOrderDto>> FilterByDate(DateTime timeStart, DateTime timeEnd)
         {
             List<ViewOrderDto> result = new();
-            List<Order.Model.Entities.Order.Order> orders = (List<Model.Entities.Order.Order>)await _MongoRepository.FindAsync(x => x.CreatedDate >= timeStart && x.CreatedDate <= timeEnd);
+            List<Order.Model.Entities.Order.Order> orders = (List<Model.Entities.Order.Order>)await _MongoRepository.FindAsync(x => x.CreatedDate >= timeStart && x.CreatedDate <= timeEnd && x.PaymentMethod != "Paypal - Chưa thanh toán" && x.PaymentMethod != "Paypal - Thanh toán không thành công");
             if (orders.Count > 0)
             {
                 foreach (var order in orders)
@@ -404,11 +406,63 @@ namespace Order.Service.Implement
 
             RevenueDto revenueDto = new()
             {
-                month = month,
+                month = month.ToString(),
                 revenue = revenue,
             };
 
             return revenueDto;
+        }
+
+        public async Task<List<RevenueDto>> Revenue(string storeID, DateTime start, DateTime end, string paymentMethod = "All")
+        {
+
+            double revenue = 0;
+            List<RevenueDto> rs = new List<RevenueDto>();
+            foreach (DateTime day in EachDay(start, end))
+            {
+                DateTime s = day.AddDays(-1).Date;
+                DateTime e = day.AddDays(1).AddTicks(-1);
+                List<ViewOrderDto> listOrder = await FilterByDate2(storeID, s, e, paymentMethod);
+                if (listOrder != null)
+                {
+                    Func<ViewOrderDto, double?> selector = x => x.TotalPrice;
+                    revenue = (double)listOrder.Sum(selector);
+                }
+
+                RevenueDto revenueDto = new()
+                {
+                    month = day.Day+"/"+day.Month,
+                    revenue = revenue,
+                };
+                rs.Add(revenueDto);
+            }
+                
+            return rs;
+        }
+
+        public async Task<RevenueDto> Revenue1(string storeID, DateTime start, DateTime end, string paymentMethod = "All")
+        {
+            List<ViewOrderDto> listOrder = await FilterByDate2(storeID, start, end, paymentMethod);
+            double revenue = 0;
+            if (listOrder != null)
+            {
+                Func<ViewOrderDto, double?> selector = x => x.TotalPrice;
+                revenue = (double)listOrder.Sum(selector);
+            }
+
+            RevenueDto revenueDto = new()
+            {
+                month = start.Date.ToShortDateString() +" đến "+end.Date.ToShortDateString(),
+                revenue = revenue,
+            };
+
+            return revenueDto;
+        }
+
+        public IEnumerable<DateTime> EachDay(DateTime from, DateTime thru)
+        {
+            for (var day = from.Date; day.Date <= thru.Date; day = day.AddDays(1))
+                yield return day;
         }
 
         public async Task<RevenueDto> Revenue(int month, int year)
@@ -426,7 +480,7 @@ namespace Order.Service.Implement
 
             RevenueDto revenueDto = new()
             {
-                month = month,
+                month = month.ToString(),
                 revenue = revenue,
             };
 

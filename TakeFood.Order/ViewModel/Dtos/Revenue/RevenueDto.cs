@@ -2,7 +2,7 @@
 {
     public class RevenueDto
     {
-        public int month { get; set; }
+        public string month { get; set; }
         public double revenue { get; set; }
     }
 }

@@ -15,6 +15,29 @@ namespace TakeFood.Order.Controllers
             this.orderService = orderService;
         }
 
+        [HttpGet("RevenueDayToDay")]
+        public async Task<JsonResult> Revenue(string storeID, DateTime start, DateTime end, string paymentMethod = "All")
+        {
+            try
+            {
+                if(end.Date - start.Date < TimeSpan.FromDays(7))
+                {
+                    var revenue = await orderService.Revenue(storeID, start, end, paymentMethod);
+                    return new JsonResult(revenue);
+                }
+                else
+                {
+                    var revenue = await orderService.Revenue1(storeID, start, end, paymentMethod);
+                    return new JsonResult(revenue);
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(ex);
+            }
+        }
+
         [HttpGet("Revenue")]
         public async Task<JsonResult> Revenue(string storeID, int month, int year, string paymentMethod = "All")
         {
