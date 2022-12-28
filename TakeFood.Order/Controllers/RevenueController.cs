@@ -28,7 +28,9 @@ namespace TakeFood.Order.Controllers
                 else
                 {
                     var revenue = await orderService.Revenue1(storeID, start, end, paymentMethod);
-                    return new JsonResult(revenue);
+                    List<RevenueDto> rs = new List<RevenueDto>();
+                    rs.Add(revenue);
+                    return new JsonResult(rs);
                 }
                 
             }
