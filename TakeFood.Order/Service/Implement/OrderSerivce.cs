@@ -215,7 +215,7 @@ namespace Order.Service.Implement
                             tempItem.Price += toppingOrderDto.Price;
                             tempItem.ListTopping.Add(toppingOrderDto);
                         }
-                        orderDetailsDto.TotalPrice = tempItem.Price;
+                        orderDetailsDto.TotalPrice += tempItem.Price;
                         foodListOrder.Add(tempItem);
                     }
                     orderDetailsDto.TempTotalPrice = orderDetailsDto.TotalPrice;
