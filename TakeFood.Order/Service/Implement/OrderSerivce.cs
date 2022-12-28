@@ -218,7 +218,8 @@ namespace Order.Service.Implement
                         orderDetailsDto.TotalPrice = tempItem.Price;
                         foodListOrder.Add(tempItem);
                     }
-                    orderDetailsDto.TempTotalPrice = orderDetailsDto.TotalPrice + order.Discount;
+                    orderDetailsDto.TempTotalPrice = orderDetailsDto.TotalPrice;
+                    orderDetailsDto.TotalPrice = orderDetailsDto.TempTotalPrice - order.Discount;
                     orderDetailsDto.ListFood = foodListOrder;
                 }
             }
